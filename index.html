@@ -81,6 +81,8 @@ But do people use it for their ride to work or to the park? Yes and no. They see
 </li>
 </ul>
 
+<div id="d3project"></div>
+
 <script>
 
 // Set the dimensions of the canvas / graph
@@ -111,13 +113,13 @@ var yAxis = d3.svg.axis().scale(y)
 
 
 // Define 'div' for tooltips
-var div = d3.select("body")
+var div = d3.select("d3project")
     .append("div")  // declare the tooltip div 
     .attr("class", "tooltip")
     .style("opacity", 0);
 
 // Adds the svg canvas
-var svg = d3.select("body")
+var svg = d3.select("d3project")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
