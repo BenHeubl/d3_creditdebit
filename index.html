@@ -90,7 +90,7 @@ But do people use it for their ride to work or to the park? Yes and no. They see
 </form>
 
 </fieldset>
-
+<div id="tooltips"></div>
 <div id="example"></div>
 
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
@@ -126,7 +126,7 @@ var yAxis = d3.svg.axis().scale(y)
 
 
 // Define 'div' for tooltips
-var div = d3.select("d3project")
+var div = d3.select("div#tooltips")
     .append("div")  // declare the tooltip div 
     .attr("class", "tooltip")
     .style("opacity", 0);
