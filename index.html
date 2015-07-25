@@ -81,7 +81,7 @@ But do people use it for their ride to work or to the park? Yes and no. They see
 </li>
 </ul>
 
-<div id="d3project"></div>
+<div id="example"></div>
 
 <script>
 
@@ -119,7 +119,7 @@ var div = d3.select("d3project")
     .style("opacity", 0);
 
 // Adds the svg canvas
-var svg = d3.select("d3project")
+var svg = d3.select("div#example")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
