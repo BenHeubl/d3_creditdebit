@@ -49,14 +49,14 @@ fieldset.field_set{
 
 </style>
 
-    <title>D3js and UK Credit Debit Data by BenHeubl</title>
+    <title>D3.js Project: UK Credit Card Transaction Data</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>D3js and UK Credit Debit Data</h1>
-        <h2>Data Visualisation of Credit &amp; Debit Card Transaction Data in the UK</h2>
+        <h1>D3.js Project: UK Credit/Debit Dataset</h1>
+        <h2>Data Visualisation of Credit &amp; Card Transaction Data in the UK</h2>
         <a href="https://github.com/BenHeubl/d3_creditdebit" class="button"><small>View project on</small> GitHub</a>
       </div>
     </header>
@@ -67,27 +67,30 @@ fieldset.field_set{
           <h3>
 <a id="this-is-a-data-journalism-project-using-data-from-the-uk-cards-association" class="anchor" href="#this-is-a-data-journalism-project-using-data-from-the-uk-cards-association" aria-hidden="true"><span class="octicon octicon-link"></span></a>This is a Data Journalism Project using Data from the UK Cards Association</h3>
 
-<h2>
-<a id="data-journalism-pieces" class="anchor" href="#data-journalism-pieces" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Journalism Pieces</h2>
-
 <h1>
-<a id="bus-journeys-tfl" class="anchor" href="#bus-journeys-tfl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bus Journey’s TFL:</h1>
-
-<<!-- ul>
-<li>In 2013, the UK Card Association supported TFL and the London public in 7,700,000 Contactless Bus journeys. This is still fairly low if one considers the sheer amount of journeys the local bus network in London carries. According to TFL the network carries over 1.8 billion passenger journeys per year. This makes every 233 bus journey a contactless bus journey. 
-But do people use it for their ride to work or to the park? Yes and no. They seem to used it right after the introduction of the contactless payment option for buses in London (July, 2014).</li>
-<li>In March 2014, the number of debit card payments for bus journeys reached almost 3 million. So people seemed to have spend over-dramatically via their debit cards. Then only five months later the amount if payments dropped to almost 50%. This could have been due to the introduction of the contactless payment and the abolishment of cash payments on buses. According to TFL, bus travellers who pay cash were paying more than others before this change. Cash fares on buses cost £2.40. Now with contactless payments, the 95p for the cash payments can be saved via the use of the Oyster card or the contactless card option. </li>
-<li>In august of 2014, we have seen a peak for the average value spent on each transition. With 55£ for credit card payments and 31£ for debit card payments in August 2014, the public spend significantly more money via their plastic cards. sdlnvldfnbvdfklnzbkln<br>
-</li>
-</ul> -->
+<a id="bus-journeys-tfl" class="anchor" href="#bus-journeys-tfl" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credit Card Growth Data Heatmap</h1>
 
 <fieldset class="field_set">
-    <legend><h1>Search Sector</h1></legend>
+    <legend><h2>Search Sector</h2></legend>
+    <p>The heat map shows whether a sector's credit card value was above the 9 year’s average (between 100-150%, in turquoise), above 150% of the average value (in green), or below 100% (in red). You can use the dropdown menu and the update button to search and display according to different parameters (search for industries that are experiencing a transformation by the web, or sectors with the high or low credit transaction value).
 
-<form name="myform" onSubmit="return handleClickSearch()">
-        <input name="Submit"  type="submit" size="100" style="font-size: 30px;" color="#fff"    value="Find recommendations for ..." >
-        <input type="text" id="myVal" size="80" style="font-size: 14px;" placeholder="Search for example for Supermarkets">
+
+<form name="myform1" onSubmit="return handleClickSearchTwo()">
+         <input name="Submit"  type="submit" size="100" tyle="width: 50px;" style="font-size: 20px;" color="#fff"    value="Select Options" > 
+
+         <select id="myValTwo" style="width: 200px;" style="font-size: 30px;" id="stock" name="stock">
+            <option value="">Original View</option>
+            <option value="above">Above Sector Average</option>
+            <option value="below">Below Sector Average</option>
+            <option value="online">Show Me All "Online Industries"</option>
+            <option value="offline">Show Me All "Offline Industries"</option>
+            <option value="high">Sectors with the Highest Average Transaction Value</option>
+            <option value="lowestt">Sectors with the Lowest Average Transaction Value"</option>
+
+
+        </select>
 </form>
+
 
 </fieldset>
 
@@ -106,10 +109,11 @@ var margin = {top: 30, right: 20, bottom: 30, left: 250},
     height = 800 - margin.top - margin.bottom;
 
 // Parse the date / time
-var parseDate = d3.time.format("%d/%m/%Y").parse;
-var formatTime = d3.time.format("%m %y");// Format tooltip date / time
+var parseDate = d3.time.format("%m/%d/%y").parse;
+var formatTime = d3.time.format("%m, %Y");// Format tooltip date / time
 
 var currentSearchTerm = "";
+var currentSearchTermTwo = "";
 
 // Set the rangestrann
 var x = d3.time.scale().range([0, width]);
@@ -149,7 +153,7 @@ var currentSearchTerm = "";
 // Get the data
 
 
-d3.csv("datatest2.csv", function(error, data) {
+d3.csv("datatest3.csv", function(error, data) {
 
     data.forEach(function(d) {
         d.date = parseDate(d.date);
@@ -170,10 +174,10 @@ d3.csv("datatest2.csv", function(error, data) {
         //    .attr("xlink:href", function(d) { return d.link; })
         .append("rect")
           .attr("class", "dot")
-            .attr("height", 150)
-            .attr("width", 7)
-            // .attr("rx","20")
-            // .attr("ry","20")
+            .attr("height", 17)
+            .attr("width", 8)
+            .attr("rx","2")
+            .attr("ry","2")
             .attr("stroke", "white")
             .attr("stroke-width", 2)
             .attr("x", function(d) { return x(d.date); })         
@@ -193,7 +197,7 @@ d3.csv("datatest2.csv", function(error, data) {
 
     // MOUSEOVER EVENTS - Tooltip stuff after this etc
         .on("mouseover", function(d) {   
-        d3.select(this).transition().duration(50).attr("fill", "magenta").attr("width", 7).attr("height", 90).attr("stroke", "magenta").attr("stroke-width", 2).attr("position", "absolute"); 
+        d3.select(this).transition().duration(50).attr("fill", "magenta").attr("width", 10).attr("height", 5).attr("stroke", "magenta").attr("stroke-width", 2).attr("position", "absolute"); 
             div.transition()
                 .duration(500)    
                 .style("fill", 0);
@@ -201,7 +205,9 @@ d3.csv("datatest2.csv", function(error, data) {
                 .duration(200)    
                 .style("opacity", 1);    
             div .html(
-                d.bucket + d.date + d.count)
+                "Sector: " + d.bucket + ", <br><br>" + 
+                 "Month/Year: " + formatTime(d.date) + 
+                 "<br><br>" + "Credit Card Transaction Value: " + d.count + "%")
                 .style("font-size", 30 + "px")     
                 .style("left", 900 + "px")             
                 .style("top", 50 + "px");
@@ -209,7 +215,7 @@ d3.csv("datatest2.csv", function(error, data) {
 
 
         .on("mousedown", function(d) {   
-        d3.select(this).transition().duration(50).attr("width", 7).attr("height", 100).attr("stroke", "white").attr("stroke-width", 2); 
+        d3.select(this).transition().duration(50).attr("width", 10).attr("height", 100).attr("stroke", "white").attr("stroke-width", 2); 
             div.transition()
                 .duration(500)    
                 .style("fill", 0);
@@ -217,14 +223,14 @@ d3.csv("datatest2.csv", function(error, data) {
                 .duration(200)    
                 .style("opacity", 1);    
             div .html(
-                d.bucket + d.date + d.count)
-                .style("font-size", 30 + "px")        
+                "Sector: " + d.bucket + ", <br>" + d.date + d.count)
+                .style("font-size", 30 + "px")     
                 .style("left", 900 + "px")             
                 .style("top", 50 + "px");
             })
 
         .on("mouseout", function(){ 
-                d3.select(this).transition().duration(100).attr("width", 7).attr("height", 150).attr("stroke", "white").attr("stroke-width", 2).attr("fill", function(d) { 
+                d3.select(this).transition().duration(100).attr("width", 8).attr("height", 17).attr("stroke", "white").attr("stroke-width", 2).attr("fill", function(d) { 
                 if (d.count <= 100) {return "#B80000"} 
                  else if (d.count >= 150) { return "#66FF00" } 
                     else { return "#00FFCC" }
@@ -238,8 +244,8 @@ d3.csv("datatest2.csv", function(error, data) {
                 .duration(200)    
                 .style("opacity", 1);    
                 div .html(
-                d.bucket + d.date + d.count)
-                .style("font-size", 15 + "px")     
+                "Sector: " + d.bucket + ", <br>" + d.date + d.count)
+                .style("font-size", 30 + "px")     
                 .style("left", 900 + "px")             
                 .style("top", 50 + "px");
             });
@@ -247,24 +253,23 @@ d3.csv("datatest2.csv", function(error, data) {
     // Add the X Axis
     svg.append("g")    
         .attr("class", "x axis")
-        .attr("transform", "translate(20," + height + ")")
+        .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
     // Add the Y Axis
     svg.append("g")    
         .attr("class", "y axis")
-        .attr("transform", "translate(-50, 10)")
+        .attr("transform", "translate(-20, 0)")
         .call(yAxis);
 
         });
 
 
-
-// Search
-function handleClickSearch(event){
-  currentSearchTerm = document.getElementById("myVal").value;
-    console.log(currentSearchTerm);
-    draw(currentSearchTerm);
+    // SearchTwo
+function handleClickSearchTwo(event){
+  currentSearchTermTwo = document.getElementById("myValTwo").value;
+    console.log(currentSearchTermTwo);
+    draw(currentSearchTermTwo);
 return false;
 }
 
@@ -273,7 +278,7 @@ function draw(){
 }
 
 var valOpacity = function(d) { 
-      if ((d.word.search(currentSearchTerm) != -1) || (d.wordsmallcaps.search(currentSearchTerm) != -1))  {
+      if ((d.average.search(currentSearchTermTwo) != -1) || (d.industry.search(currentSearchTermTwo) != -1) || (d.atv.search(currentSearchTermTwo) != -1))  {
         return 1;
       }
       else {
@@ -282,9 +287,25 @@ var valOpacity = function(d) {
     };
 
 </script>
-<!-- 
-<p>In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-        </section> -->
+
+
+<h3><a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Retail Sectors and Credit Card Data - Sectors Which Started to Embrace the Web Are The Ones that Managed to Grow Their Sector’s Transaction Value</h3>
+<p>
+  <br><br>
+  That retail is going through a transformation is being mirrored in sectors such as clothing and shoe shops. Early on, these sectors embraced the power of the web. New online retailers appear on a constant basis and even let people try things on at home before asking them to pay (such as <a href="https://www.trunkclub.com/" class="user-mention">Trunk Club</a> or <a href="https://econsultancy.com/blog/65655-four-online-retailers-that-offer-try-before-you-buy-fulfilment/" class="user-mention">Rocksbox</a>). In the visualizations you can see that the sectors that did embrace the web have present rates above the sector average since 2011.
+
+
+<h3><a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Does Mobile Change Everything? Yes, If Consumers Trust Security</h3>
+<p>
+  <br><br>
+  Mobile brings together the web and retail shop experience. According to an article on retail predictions by <a href="https://www.vendhq.com/university/retail-trends-and-predictions-2015" class="user-mention">Vend</a>, companies will find better ways to manage risk and protect customers. Apple Pay for examples allows people to pay with their phones in shops. It assigns a unique Device Account Number to each phone, which is used together with the transaction-specific security code to process each purchase (so credit or debit card numbers are never transmitted with the payment, nor are they shared with merchants).
+
+  <h3><a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. Contactless Payments</h3>
+<p>
+  <br><br>
+  A list of retailers offers contactless payments already. Credit card providers such as MBNA already offer an affordable option of a credit with contactless payment chip.
+
+
 
      
       </div>
